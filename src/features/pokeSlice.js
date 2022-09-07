@@ -5,43 +5,42 @@ import {
     createEntityAdapter 
 } from "@reduxjs/toolkit";
 import axios from "axios";
-const POSTS_URL = 'https://pokeapi.co/api/v2/';
+const _URL = 'https://pokeapi.co/api/v2/pokemon';
 
 const initialState = {
-    pokemon: '',
+    pokemon: [],
     status: '',
     error: null
 }
 
-export const fetchPosts = createAsyncThunk('pokemon/fetchPosts', async () => {
-    const response = await axios.get(POSTS_URL)
+export const fetchPokemon = createAsyncThunk('pokemon/fetchPokemon', async () => {
+    const response = await axios.get(_URL)
     return response.data
 })
 
 export const pokeSlice = createSlice({
     name: 'pokemon',
     initialState,
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(fetchPosts.pending, (state, action) => {
+            .addCase(fetchPokemon.pending, (state, action) => {
                 state.status = 'loading'
             })
-            .addCase(fetchPosts.fulfilled, (state, action) => {
-                console.log('action', action)
+            .addCase(fetchPokemon.fulfilled, (state, action) => {
+                console.log('action', action.payload.results)
                 state.status = 'succeeded'
+                state.pokemon = action.payload.results
                 // Add any fetched posts to the array
                 //state.pokemon = state.pokemon.concat(loadedPosts)
                 //postsAdapter.upsertMany(state, loadedPosts)
             })
-            .addCase(fetchPosts.rejected, (state, action) => {
+            .addCase(fetchPokemon.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })
     }
 })
 
-//export const {} = pokeSlice.actions;
+export const selectAllPokemon = (state) => state.pokemon.pokemon
 export default pokeSlice.reducer
