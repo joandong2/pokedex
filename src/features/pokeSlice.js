@@ -5,22 +5,27 @@ import {
     createEntityAdapter 
 } from "@reduxjs/toolkit";
 import axios from "axios";
-const _URL = 'https://pokeapi.co/api/v2/pokemon';
 
-const initialState = {
-    pokemon: [],
-    status: '',
-    error: null
-}
+const _URL = 'https://pokeapi.co/api/v2/pokemon/?limit=20&offest=20';
 
-export const fetchPokemon = createAsyncThunk('pokemon/fetchPokemon', async () => {
-    const response = await axios.get(_URL)
-    return response.data
-})
+export const fetchPokemon = createAsyncThunk(
+    "pokemon/fetchPokemon", async (_, thunkAPI) => {
+       try {
+          const response = await axios.get(_URL);//where you want to fetch data
+          return response.data;
+        } catch (error) {
+           return thunkAPI.rejectWithValue({ error: error.message });
+        }
+});     
 
 export const pokeSlice = createSlice({
     name: 'pokemon',
-    initialState,
+    initialState : {
+        pokemon: [],
+        count: 0,
+        status: 'idle',
+        error: null
+    },
     reducers: {},
     extraReducers(builder) {
         builder
@@ -28,12 +33,9 @@ export const pokeSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                console.log('action', action.payload.results)
                 state.status = 'succeeded'
+                state.count = action.payload.count
                 state.pokemon = action.payload.results
-                // Add any fetched posts to the array
-                //state.pokemon = state.pokemon.concat(loadedPosts)
-                //postsAdapter.upsertMany(state, loadedPosts)
             })
             .addCase(fetchPokemon.rejected, (state, action) => {
                 state.status = 'failed'
@@ -43,4 +45,7 @@ export const pokeSlice = createSlice({
 })
 
 export const selectAllPokemon = (state) => state.pokemon.pokemon
+export const getPokemonCount = (state) => state.pokemon.count
+export const getStatus = (state) => state.pokemon.status
+
 export default pokeSlice.reducer

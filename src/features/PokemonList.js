@@ -1,20 +1,27 @@
-import { useSelector } from 'react-redux'
-import { selectAllPokemon } from './pokeSlice'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchPokemon, selectAllPokemon, getPokemonCount, getStatus } from './pokeSlice'
 //import { Link } from 'react-router-dom'
 
 const PokemonList = () => {
     const allPokemon = useSelector(selectAllPokemon)
-    //console.log('all', allPokemon)
+    const countPokemon = useSelector(getPokemonCount)
+    const status = useSelector(getStatus)
+    const dispatch = useDispatch()
+    
+    console.log('status', status);
 
-    const renderedPokemon = allPokemon.map(pokemon => (
-        <li >
-            {pokemon.name}
-        </li>
-    ))
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchPokemon())
+        }
+     }, [status, dispatch]);
 
     return (
         <section>
-            <ul>{renderedPokemon}</ul>
+            { allPokemon.map(poke=> (
+                <h1>{poke.name}</h1>
+            )) }
         </section>
     )
 }
