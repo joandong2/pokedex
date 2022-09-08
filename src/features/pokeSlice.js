@@ -31,7 +31,6 @@ export const pokeSlice = createSlice({
     initialState : {
         pokemon: [],
         pokemonData: [],
-        //count: 0,
         status: 'idle',
         error: null,
         nextUrl: '',
@@ -47,8 +46,8 @@ export const pokeSlice = createSlice({
                 //console.log('action', action.payload)
                 state.status = 'success'
                 //state.count = action.payload.count
-                state.pokemon = action.payload.results
                 state.pokemonData = []
+                state.pokemon = action.payload.results
                 state.nextUrl = action.payload.next
                 state.prevUrl = action.payload.previous
             })
@@ -57,7 +56,7 @@ export const pokeSlice = createSlice({
                 state.error = action.error.message
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                console.log('action', action.payload)
+                //console.log('action', action.payload)
                 state.status = 'success'
                 state.pokemonData = [...state.pokemonData, action.payload]
             })

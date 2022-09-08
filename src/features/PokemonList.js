@@ -14,7 +14,7 @@ import Pokemon from './Pokemon'
 //import { Link } from 'react-router-dom'
 
 const PokemonList = () => {
-    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=12')
+    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=16')
     const allPokemon = useSelector(selectAllPokemon)
     const allPokemonData = useSelector(getPokemonData)
     const nextUrl = useSelector(getNextUrl)
@@ -46,26 +46,19 @@ const PokemonList = () => {
         dispatch(fetchAllPokemon(prevUrl))
     }
 
-    // useEffect(() => {
-    //     if(allPokemon != null) {
-    //         allPokemon.map((poke) => (
-    //             dispatch(fetchPokemon(poke.url))
-    //         ))
-    //     }
-    // }, [dispatch, allPokemon ]);
-
     return (
         <section>
-            { allPokemonData.map(poke=> (
-                <>
-                    <Pokemon attributes={poke} />
-                </>
-            )) }
-            <div className="flex space-x-2">
-                <button className="rounded bg-red-500 font-bold p-2 text-white" onClick={handlePrevEvent}>PREVIOUS</button>
-                <button className="rounded bg-red-500 font-bold p-2 text-white" onClick={handleNextEvent}>NEXT</button>
+            <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-10">
+                { allPokemonData.map(poke=> (
+                    <>
+                        <Pokemon attributes={poke} />
+                    </>
+                )) }
             </div>
-            
+            <div className="container mx-auto flex space-x-2 pl-10 mt-4 mb-4">
+                <button className="rounded bg-red-500 font-bold py-2 px-4 text-white" onClick={handlePrevEvent}>PREVIOUS</button>
+                <button className="rounded bg-red-500 font-bold py-2 px-4 text-white" onClick={handleNextEvent}>NEXT</button>
+            </div>
         </section>
     )
 }
