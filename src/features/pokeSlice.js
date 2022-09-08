@@ -34,7 +34,7 @@ export const pokeSlice = createSlice({
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
                 //console.log('action', action.payload)
-                state.status = 'succeeded'
+                state.status = 'success'
                 //state.count = action.payload.count
                 state.pokemon = action.payload.results
                 state.nextUrl = action.payload.next

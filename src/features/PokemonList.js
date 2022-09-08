@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchPokemon, selectAllPokemon, getPokemonCount, getStatus, getNextUrl, getPrevUrl } from './pokeSlice'
+import { 
+    fetchPokemon, 
+    selectAllPokemon, 
+    getPokemonCount, 
+    getStatus, 
+    getNextUrl, 
+    getPrevUrl 
+} from './pokeSlice'
 //import { Link } from 'react-router-dom'
 
 const PokemonList = () => {
