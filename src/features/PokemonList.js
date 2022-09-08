@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { 
-    fetchPokemon, 
+    fetchAllPokemon, 
     selectAllPokemon, 
     getPokemonCount, 
+    getPokemonData,
     getStatus, 
     getNextUrl, 
-    getPrevUrl 
+    getPrevUrl, 
+    fetchPokemon
 } from './pokeSlice'
+import Pokemon from './Pokemon'
 //import { Link } from 'react-router-dom'
 
 const PokemonList = () => {
     const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=12')
     const allPokemon = useSelector(selectAllPokemon)
-    //const countPokemon = useSelector(getPokemonCount)
+    const allPokemonData = useSelector(getPokemonData)
     const nextUrl = useSelector(getNextUrl)
     const prevUrl = useSelector(getPrevUrl)
     const status = useSelector(getStatus)
@@ -22,24 +25,41 @@ const PokemonList = () => {
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchPokemon(curr_Url))
+            dispatch(fetchAllPokemon(curr_Url))
         }
-    }, [status, dispatch, curr_Url ]);
+
+        if(status === 'success') {
+            allPokemon.map((poke) => (
+                dispatch(fetchPokemon(poke.url))
+            ))
+        }
+
+    }, [status, dispatch, curr_Url, allPokemon ]);
 
     const handleNextEvent = (e) => {
         e.preventDefault();
-        dispatch(fetchPokemon(nextUrl))
+        dispatch(fetchAllPokemon(nextUrl))
     }
 
     const handlePrevEvent = (e) => {
         e.preventDefault();
-        dispatch(fetchPokemon(prevUrl))
+        dispatch(fetchAllPokemon(prevUrl))
     }
+
+    // useEffect(() => {
+    //     if(allPokemon != null) {
+    //         allPokemon.map((poke) => (
+    //             dispatch(fetchPokemon(poke.url))
+    //         ))
+    //     }
+    // }, [dispatch, allPokemon ]);
 
     return (
         <section>
-            { allPokemon.map(poke=> (
-                <h1>{poke.name}</h1>
+            { allPokemonData.map(poke=> (
+                <>
+                    <Pokemon attributes={poke} />
+                </>
             )) }
             <div className="flex space-x-2">
                 <button className="rounded bg-red-500 font-bold p-2 text-white" onClick={handlePrevEvent}>PREVIOUS</button>
