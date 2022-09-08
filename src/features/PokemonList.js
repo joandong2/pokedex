@@ -14,7 +14,7 @@ import Pokemon from './Pokemon'
 //import { Link } from 'react-router-dom'
 
 const PokemonList = () => {
-    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=16')
+    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=24')
     const allPokemon = useSelector(selectAllPokemon)
     const allPokemonData = useSelector(getPokemonData)
     const nextUrl = useSelector(getNextUrl)
