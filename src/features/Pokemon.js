@@ -1,4 +1,73 @@
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Radar } from 'react-chartjs-2';
+
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
+);
+
 const Pokemon = ({ attributes }) => {
+
+    const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: false,
+          },
+        },
+        scales: {
+            r: {
+                angleLines: {
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 100
+            }
+        }
+    };
+
+    const data = {
+        labels: [
+            attributes.stats[0].stat.name.toUpperCase(), 
+            attributes.stats[1].stat.name.toUpperCase(),
+            attributes.stats[2].stat.name.toUpperCase(),
+            attributes.stats[3].stat.name.toUpperCase(),
+            attributes.stats[4].stat.name.toUpperCase(),
+            attributes.stats[5].stat.name.toUpperCase()
+        ],
+        datasets: [
+            {
+            data: [
+                attributes.stats[0].base_stat,
+                attributes.stats[1].base_stat,
+                attributes.stats[2].base_stat,
+                attributes.stats[3].base_stat,
+                attributes.stats[4].base_stat,
+                attributes.stats[5].base_stat
+            ],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2,
+            },
+        ],
+    };
+      
+
     return (
         <>
         <div data-bs-toggle="modal" data-bs-target={`#${attributes.name}`} key={attributes.order} className={`pokemon flex flex-col ml-4 mt-4 p-2 mb-5 w-[13%] rounded-md box-content h-60 align-center justify-center ${attributes.types[0].type.name} cursor-pointer`}>
@@ -14,10 +83,10 @@ const Pokemon = ({ attributes }) => {
                     </div>
                     <div className="modal-body relative p-4">
                         <div className="flex justify-between align-middle">
-                            <img className="max-h-[300px]" src={`${attributes.sprites.other["official-artwork"].front_default}`} alt=""/>
-                            <div>
+                            <img className="" src={`${attributes.sprites.other["official-artwork"].front_default}`} alt=""/>
+                            <div className="w-[50%]">
                                 <h1 className="text-lightBlack">{attributes.name}</h1>
-                                <p className="text-lightBlack">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:</p>
+                                <Radar data={data} options={options}/>
                             </div>
                         </div>
                     </div>
