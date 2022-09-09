@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;800&display=swap');
+
 body {
-    background: #f3fafa;
+  background: #f3fafa;
+  font-family: 'Poppins', sans-serif;
 }
 
 .pokemon {
@@ -13,7 +16,8 @@ body {
 .rock {
    background-image: url('./images/pokeball-png-45334.png'), linear-gradient(to top, #c79081 0%, #dfa579 100%);
 }
-.ghost {
+.ghost,
+.dragon {
   background-image: url('./images/pokeball-png-45334.png'), linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   background-position: top;
 }
@@ -46,7 +50,8 @@ body {
   background-image: url('./images/pokeball-png-45334.png'), linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   background-position: top;
 }
-.water {
+.water,
+.ice {
   background-image: url('./images/pokeball-png-45334.png'), linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
   background-position: center;
 }

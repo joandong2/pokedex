@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { 
     fetchAllPokemon, 
     selectAllPokemon, 
-    getPokemonCount, 
     getPokemonData,
     getStatus, 
     getNextUrl, 
@@ -11,10 +10,9 @@ import {
     fetchPokemon
 } from './pokeSlice'
 import Pokemon from './Pokemon'
-//import { Link } from 'react-router-dom'
 
 const PokemonList = () => {
-    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=24')
+    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=18')
     const allPokemon = useSelector(selectAllPokemon)
     const allPokemonData = useSelector(getPokemonData)
     const nextUrl = useSelector(getNextUrl)
@@ -27,13 +25,11 @@ const PokemonList = () => {
         if (status === 'idle') {
             dispatch(fetchAllPokemon(curr_Url))
         }
-
         if(status === 'success') {
             allPokemon.map((poke) => (
                 dispatch(fetchPokemon(poke.url))
             ))
         }
-
     }, [status, dispatch, curr_Url, allPokemon ]);
 
     const handleNextEvent = (e) => {
@@ -48,7 +44,7 @@ const PokemonList = () => {
 
     return (
         <section>
-            <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-10">
+            <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-5">
                 { allPokemonData.map(poke=> (
                     <>
                         <Pokemon attributes={poke} />
