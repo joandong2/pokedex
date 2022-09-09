@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import 'tw-elements';
 
 // fetch all pokemon on store dispatch
 //store.dispatch(fetchPokemon());

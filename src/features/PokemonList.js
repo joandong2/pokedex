@@ -11,6 +11,7 @@ import {
 } from './pokeSlice'
 import Pokemon from './Pokemon'
 
+
 const PokemonList = () => {
     const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=18')
     const allPokemon = useSelector(selectAllPokemon)

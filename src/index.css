@@ -8,11 +8,9 @@ body {
   background: #f3fafa;
   font-family: 'Poppins', sans-serif;
 }
-
 .pokemon {
   background-blend-mode: color;
 }
-
 .rock {
    background-image: url('./images/pokeball-png-45334.png'), linear-gradient(to top, #c79081 0%, #dfa579 100%);
 }
@@ -63,4 +61,32 @@ body {
   background-color: #FBAB7E;
   background-image:  url('./images/pokeball-png-45334.png'), linear-gradient( 109.6deg,  rgba(231,76,60,1) 11.2%, rgba(203,67,53,1) 91.1% );
   background-position: bottom;
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+      max-width: 800px;
+  }
+}
+.modal-content {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #fff;
+}
+.modal-fire .modal-content:before {
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+.modal-content:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-origin: 0% -80%;
+  -ms-transform-origin: 0% -80%;
+  transform-origin: 0% -80%;
+  -webkit-transform: skew(-32deg);
+  -ms-transform: skew(-32deg);
+  transform: skew(-32deg);
 }
