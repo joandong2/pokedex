@@ -40,10 +40,12 @@ body {
 .modal-bug .modal-content:before {
   background-image: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
 }
-.poison {
+.poison,
+.psychic {
   background-image: url('./images/pokeball-png-45334.png'), linear-gradient(to top, #df89b5 0%, #bfd9fe 100%);
 }
-.modal-poison .modal-content:before {
+.modal-poison .modal-content:before,
+.modal-psychic .modal-content:before {
   background-image: linear-gradient(to top, #df89b5 0%, #bfd9fe 100%);
 }
 .normal {
