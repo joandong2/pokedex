@@ -19,7 +19,6 @@ ChartJS.register(
 );
 
 const Pokemon = ({ attributes }) => {
-
     const options = {
         responsive: true,
         plugins: {

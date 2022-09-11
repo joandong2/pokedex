@@ -5,6 +5,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import 'tw-elements';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // fetch all pokemon on store dispatch
 //store.dispatch(fetchPokemon());
@@ -12,6 +13,10 @@ import 'tw-elements';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <App />
+    <Router>
+        <Routes>
+          <Route path="/*" element={<App/>} />
+        </Routes>
+      </Router>
   </Provider>
 );
