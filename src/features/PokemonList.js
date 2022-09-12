@@ -1,55 +1,50 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { 
-    fetchAllPokemon, 
+import {  
     selectAllPokemon, 
-    getPokemonData,
-    getStatus, 
-    getNextUrl, 
-    getPrevUrl, 
+    getStatus,  
     fetchPokemon
 } from './pokeSlice'
 import Pokemon from './Pokemon'
 
 const PokemonList = () => {
-    const [curr_Url, setCurr_Url] = useState('https://pokeapi.co/api/v2/pokemon/?limit=18')
-    const allPokemon = useSelector(selectAllPokemon)
-    const allPokemonData = useSelector(getPokemonData)
-    const nextUrl = useSelector(getNextUrl)
-    const prevUrl = useSelector(getPrevUrl)
-    const status = useSelector(getStatus)
-
+    //const allPokemon = useSelector(selectAllPokemon)
+    const LIMIT = 5;
+    const [offset, setOffset] = useState(0);
+    const [endOffset, setEndOffset] = useState(LIMIT);
+    const POKEMON = JSON.parse(localStorage.getItem("jl_pokemon"));
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchAllPokemon(curr_Url))
-        }
-        if(status === 'success') {
-            allPokemon.map((poke) => (
-                dispatch(fetchPokemon(poke.url))
-            ))
-        }
-    }, [status, dispatch, curr_Url, allPokemon ]);
+        setEndOffset(offset + LIMIT);
+        POKEMON.slice(offset, endOffset).map((poke) => (
+            //console.log(poke.url)
+            dispatch(fetchPokemon(poke.url))
+        ))
+    }, [offset, endOffset, dispatch, POKEMON])
 
     const handleNextEvent = (e) => {
         e.preventDefault();
-        dispatch(fetchAllPokemon(nextUrl))
+        setOffset(endOffset)
     }
 
     const handlePrevEvent = (e) => {
         e.preventDefault();
-        dispatch(fetchAllPokemon(prevUrl))
+        setOffset(endOffset - (LIMIT*2))
     }
 
+    // if(getStatus === 'success'){
+    //     console.log('all', allPokemon)
+    // }
+    
     return (
         <section>
             <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-5">
-                { allPokemonData.map(poke=> (
+                {/* { allPokemon.map(poke=> (
                     <>
                         <Pokemon attributes={poke} />
                     </>
-                )) }
+                )) } */}
             </div>
             <div className="container mx-auto flex space-x-2 pl-10 mt-4 mb-4">
                 <button className="rounded bg-red-500 font-bold py-2 px-4 text-white" onClick={handlePrevEvent}>PREVIOUS</button>

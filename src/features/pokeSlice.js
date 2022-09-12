@@ -1,8 +1,6 @@
 import { 
     createAsyncThunk, 
     createSlice, 
-    createSelector, 
-    createEntityAdapter 
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -30,11 +28,8 @@ export const pokeSlice = createSlice({
     name: 'pokemon',
     initialState : {
         pokemon: [],
-        pokemonData: [],
         status: 'idle',
         error: null,
-        nextUrl: '',
-        prevUrl: ''
     },
     reducers: {},
     extraReducers(builder) {
@@ -43,31 +38,24 @@ export const pokeSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(fetchAllPokemon.fulfilled, (state, action) => {
-                //console.log('action', action.payload)
+                if (!localStorage.getItem('jl_pokemon')) {
+                    localStorage.setItem('jl_pokemon', JSON.stringify(action.payload.results))
+                }
                 state.status = 'success'
-                //state.count = action.payload.count
-                state.pokemonData = []
-                state.pokemon = action.payload.results
-                state.nextUrl = action.payload.next
-                state.prevUrl = action.payload.previous
             })
             .addCase(fetchAllPokemon.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                console.log('action', action.payload)
-                state.pokemonData = [...state.pokemonData, action.payload]
+                //console.log('action1', action.payload)
+                state.pokemon.push(action.payload)
                 state.status = 'success'
             })
     }
 })
 
 export const selectAllPokemon = (state) => state.pokemon.pokemon
-export const getPokemonData = (state) => state.pokemon.pokemonData
-//export const getPokemonCount = (state) => state.pokemon.count
 export const getStatus = (state) => state.pokemon.status
-export const getNextUrl = (state) => state.pokemon.nextUrl
-export const getPrevUrl = (state) => state.pokemon.prevUrl
 
 export default pokeSlice.reducer
