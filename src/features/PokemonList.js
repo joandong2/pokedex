@@ -8,37 +8,45 @@ import {
 import Pokemon from './Pokemon'
 
 const PokemonList = () => {
-    //const allPokemon = useSelector(selectAllPokemon)
+    const allPokemon = useSelector(selectAllPokemon)
     const currState = useSelector(getState)
     const POKEMON = JSON.parse(localStorage.getItem("jl_pokemon"));
-    const [index, setIndex] = useState(0)
-    const [offset, setOffset] = useState(currState.count);
+    const LIMIT = currState.limit;
+    const [offset, setOffset] = useState(0);
+    const [endOffset, setEndoffset] = useState(LIMIT); // 5
     const dispatch = useDispatch()
+    let i = 0;
+
+    // useEffect(() => {
+    //     POKEMON.slice(offset, endOffset).map((poke) => (
+    //         currState.status === 'idle' ? dispatch(fetchPokemon(poke.url)) : 'hello'
+    //     ))
+    // }, [dispatch, POKEMON, currState.status, offset, endOffset])
 
     useEffect(() => {
         if(currState.status === 'idle') {
-            dispatch(fetchPokemon(POKEMON[index].url))
-            setIndex(index + 1)
+            dispatch(fetchPokemon(POKEMON[currState.pokemon.length].url))
         }
-    }, [dispatch, POKEMON, currState, index])
+    }, [dispatch, POKEMON, currState, offset])
 
     const handleNextEvent = (e) => {
         e.preventDefault();
-        //setOffset(endOffset)
+        setOffset(endOffset)
+        setEndoffset(endOffset + LIMIT)
     }
 
     const handlePrevEvent = (e) => {
         e.preventDefault();
-        //setOffset(endOffset - (LIMIT*2))
+        setOffset(endOffset - (LIMIT*2))
     }
 
-    console.log('state', currState)
-    console.log('index', index)
+    console.log('length', currState.pokemon.length)
+    console.log('status', currState.status)
 
     return (
         <section>
             <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-5">
-                { currState.pokemon.map(poke=> (
+                { allPokemon.map(poke=> (
                     <>
                         <Pokemon attributes={poke} />
                     </>

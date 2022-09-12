@@ -25,8 +25,7 @@ export const pokeSlice = createSlice({
         pokemon: [],
         status: 'idle',
         error: null,
-        count: 0,
-        limit: 10
+        limit: 5
     },
     reducers: {},
     extraReducers(builder) {
