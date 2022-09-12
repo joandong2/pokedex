@@ -14,15 +14,10 @@ export const fetchAllPokemon = createAsyncThunk(
         }
 }); 
 
-export const fetchPokemon = createAsyncThunk(
-    "pokemon/fetchPokemon", async (URL, thunkAPI) => {
-       try {
-            const response = await axios.get(URL);//where you want to fetch data
-            return response.data;
-        } catch (error) {
-            return thunkAPI.rejectWithValue({ error: error.message });
-        }
-});   
+export const fetchPokemon = createAsyncThunk('pokemon/fetchPokemon', async (URL) => {
+    const response = await axios.get(URL)
+    return response.data
+})
 
 export const pokeSlice = createSlice({
     name: 'pokemon',
@@ -30,6 +25,7 @@ export const pokeSlice = createSlice({
         pokemon: [],
         status: 'idle',
         error: null,
+        LIMIT: 5
     },
     reducers: {},
     extraReducers(builder) {
@@ -49,13 +45,15 @@ export const pokeSlice = createSlice({
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
                 //console.log('action1', action.payload)
-                state.pokemon.push(action.payload)
+                if(state.pokemon.length === state.LIMIT) {
+                    state.pokemon = []
+                }
+                state.pokemon = [...state.pokemon, action.payload]
                 state.status = 'success'
             })
     }
 })
 
 export const selectAllPokemon = (state) => state.pokemon.pokemon
-export const getStatus = (state) => state.pokemon.status
 
 export default pokeSlice.reducer

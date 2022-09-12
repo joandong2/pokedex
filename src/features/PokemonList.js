@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  
     selectAllPokemon, 
-    getStatus,  
     fetchPokemon
 } from './pokeSlice'
 import Pokemon from './Pokemon'
@@ -18,10 +17,9 @@ const PokemonList = () => {
     useEffect(() => {
         setEndOffset(offset + LIMIT);
         POKEMON.slice(offset, endOffset).map((poke) => (
-            //console.log(poke.url)
             dispatch(fetchPokemon(poke.url))
         ))
-    }, [offset, endOffset, dispatch, POKEMON])
+    }, [dispatch, POKEMON, offset, endOffset])
 
     const handleNextEvent = (e) => {
         e.preventDefault();
@@ -33,10 +31,6 @@ const PokemonList = () => {
         setOffset(endOffset - (LIMIT*2))
     }
 
-    // if(getStatus === 'success'){
-    //     console.log('all', allPokemon)
-    // }
-    
     return (
         <section>
             <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-5">
