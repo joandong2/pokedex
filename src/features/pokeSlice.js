@@ -25,7 +25,8 @@ export const pokeSlice = createSlice({
         pokemon: [],
         status: 'idle',
         error: null,
-        LIMIT: 5
+        count: 0,
+        limit: 10
     },
     reducers: {},
     extraReducers(builder) {
@@ -44,16 +45,16 @@ export const pokeSlice = createSlice({
                 state.error = action.error.message
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                //console.log('action1', action.payload)
-                if(state.pokemon.length === state.LIMIT) {
-                    state.pokemon = []
-                }
+                //console.log('action1', action.payload
                 state.pokemon = [...state.pokemon, action.payload]
-                state.status = 'success'
+                if (state.pokemon.length === state.limit) {
+                    state.status = 'success' 
+                }
             })
     }
 })
 
+export const getState = (state) => state.pokemon
 export const selectAllPokemon = (state) => state.pokemon.pokemon
 
 export default pokeSlice.reducer
