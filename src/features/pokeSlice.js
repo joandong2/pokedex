@@ -22,34 +22,30 @@ export const fetchPokemon = createAsyncThunk('pokemon/fetchPokemon', async (URL)
 export const pokeSlice = createSlice({
     name: 'pokemon',
     initialState : {
+        placeholder: [],
         pokemon: [],
         status: 'idle',
         error: null,
-        limit: 5
+        limit: 5,
     },
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(fetchAllPokemon.pending, (state, action) => {
-                state.status = 'loading'
-            })
             .addCase(fetchAllPokemon.fulfilled, (state, action) => {
                 if (!localStorage.getItem('jl_pokemon')) {
                     localStorage.setItem('jl_pokemon', JSON.stringify(action.payload.results))
                 }
                 state.status = 'success'
             })
-            .addCase(fetchAllPokemon.rejected, (state, action) => {
-                state.status = 'failed'
-                state.error = action.error.message
-            })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                //console.log('action1', action.payload)
-                //state.pokemon = [...state.pokemon, action.payload]
-                if (state.pokemon.length !== state.limit) {
+                if (state.placeholder.pokemon !== state.limit) {
+                    state.status = 'fetching'
                     state.pokemon.push(action.payload)
-                } 
-                state.status = 'success'
+                    state.placeholder.push(action.payload)
+                } else {
+                    state.status = 'success'
+                    state.placeholder = []
+                }
             })
     }
 })

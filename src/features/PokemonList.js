@@ -15,19 +15,12 @@ const PokemonList = () => {
     const [offset, setOffset] = useState(0);
     const [endOffset, setEndoffset] = useState(LIMIT); // 5
     const dispatch = useDispatch()
-
+    
     useEffect(() => {
         POKEMON.slice(offset, endOffset).map((poke) => (
             dispatch(fetchPokemon(poke.url))
         ))
     }, [dispatch, POKEMON, offset, endOffset])
-
-    // useEffect(() => {
-    //     if(currState.status === 'idle') {
-    //         dispatch(fetchPokemon(POKEMON[currState.pokemon.length].url))
-    //         setCurrPokemon(...currPokemon, currState.pokemon)
-    //     }
-    // }, [dispatch, POKEMON, currState, offset, currPokemon])
 
     const handleNextEvent = (e) => {
         e.preventDefault();
@@ -41,10 +34,8 @@ const PokemonList = () => {
         setEndoffset(endOffset - LIMIT)
     }
 
-    console.log('state', currState)
-    console.log('status', currState.status)
-    console.log('start', offset)
-    console.log('end', endOffset)
+    console.log('status', currState)
+    console.log('allPokemon', allPokemon)
 
     return (
         <section>
