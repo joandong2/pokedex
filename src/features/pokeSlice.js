@@ -44,11 +44,12 @@ export const pokeSlice = createSlice({
                 state.error = action.error.message
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                //console.log('action1', action.payload
-                state.pokemon = [...state.pokemon, action.payload]
-                if (state.pokemon.length === state.limit) {
-                    state.status = 'success' 
-                }
+                //console.log('action1', action.payload)
+                //state.pokemon = [...state.pokemon, action.payload]
+                if (state.pokemon.length !== state.limit) {
+                    state.pokemon.push(action.payload)
+                } 
+                state.status = 'success'
             })
     }
 })
