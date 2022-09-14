@@ -12,9 +12,9 @@ const PokemonList = () => {
     const currState = useSelector(getState)
     const allPokemon = useSelector(selectAllPokemon)
     const POKEMON = JSON.parse(localStorage.getItem("jl_pokemon"));
-    const LIMIT = 5;
+    const LIMIT = currState.limit;
     const [offset, setOffset] = useState(0);
-    const [endOffset, setEndoffset] = useState(LIMIT); // 5
+    const [endOffset, setEndoffset] = useState(LIMIT); 
     const dispatch = useDispatch()
     
     useEffect(() => {

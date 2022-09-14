@@ -21,7 +21,7 @@ export const pokeSlice = createSlice({
         pokemon: [],
         status: 'idle',
         error: null,
-        limit: 5,
+        limit: 18,
     },
     reducers: {
         resetPokemon: (state, action) => {
@@ -29,29 +29,6 @@ export const pokeSlice = createSlice({
             state.pokemon = []
             state.status = 'idle'
         },
-        // postAdded: {
-        //     reducer(state, action) {
-        //         state.posts.push(action.payload)
-        //     },
-        //     prepare(title, content, userId) {
-        //         return {
-        //             payload: {
-        //                 id:nanoid(),
-        //                 title,
-        //                 content,
-        //                 date: new Date().toISOString(),
-        //                 userId,
-        //                 reactions: {
-        //                     thumbsUp: 0,
-        //                     wow: 0,
-        //                     heart: 0,
-        //                     rocket: 0,
-        //                     coffee: 0
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }, 
     },
     extraReducers(builder) {
         builder
@@ -62,8 +39,6 @@ export const pokeSlice = createSlice({
                 state.status = 'success'
             })
             .addCase(fetchPokemon.fulfilled, (state, action) => {
-                //const POKEMON = JSON.parse(localStorage.getItem("jl_pokemon"));
-                //console.log('poke', POKEMON)
                 if (state.pokemon.length !== state.limit) {
                     state.pokemon.push(action.payload)
                 } else {
