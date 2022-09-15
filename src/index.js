@@ -9,9 +9,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { fetchAllPokemon } from './features/pokeSlice'
 
 // fetch all pokemon on store dispatch
-if (!localStorage.getItem('jl_pokemon')) {
-  store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=20'));
-}
+// if (!localStorage.getItem('jl_pokemon')) {
+//   store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=-1'));
+// }
+store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=20'));
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
