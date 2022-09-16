@@ -12,7 +12,7 @@ import { fetchAllPokemon } from './features/pokeSlice'
 // if (!localStorage.getItem('jl_pokemon')) {
 //   store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=-1'));
 // }
-store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=20'));
+store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=18'));
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
