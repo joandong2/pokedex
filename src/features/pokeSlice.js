@@ -21,7 +21,7 @@ export const pokeSlice = createSlice({
         pokemon: [],
         status: 'idle',
         error: null,
-        limit: 16,
+        limit: 12,
         pokemonURL: [],
         nextURL: '',
         prevURL: '',
@@ -51,7 +51,7 @@ export const pokeSlice = createSlice({
     }
 })
 
-//export const getState = (state) => state.pokemon
+export const getState = (state) => state.pokemon
 export const getStateStatus = (state) => state.pokemon.status
 export const getStateLimit = (state) => state.pokemon.limit
 export const getPokemonUrl = (state) => state.pokemon.pokemonURL

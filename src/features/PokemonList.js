@@ -28,15 +28,15 @@ const PokemonList = () => {
         }
     }, [dispatch, currPokemonUrl, currStatus])
 
-    // const handleNextEvent = (e) => {
-    //     e.preventDefault();
-    //     dispatch(fetchAllPokemon(nextUrl))
-    // }
+    const handleNextEvent = (e) => {
+        e.preventDefault();
+        //dispatch(fetchAllPokemon(nextUrl))
+    }
 
-    // const handlePrevEvent = (e) => {
-    //     e.preventDefault();
-    //     dispatch(fetchAllPokemon(prevUrl))
-    // }
+    const handlePrevEvent = (e) => {
+        e.preventDefault();
+        //dispatch(fetchAllPokemon(prevUrl))
+    }
 
     return (
         <section>
