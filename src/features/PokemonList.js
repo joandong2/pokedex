@@ -42,18 +42,23 @@ const PokemonList = () => {
     return (
         <section>
             <div className="container flex flex-wrap justify-between items-center px-6 mx-auto mt-5">
-                { allPokemonData.length === 18 ? 
+                { allPokemonData.length !== 18 ? 
                     (   
-                        <div className="flex items-center justify-center">
-                            <button type="button" class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed" disabled>
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-black z-auto" viewBox="0 0 24 24"></svg>
-                                Processing...
-                            </button>
+                        <div className="flex items-center space-x-2 w-full justify-center">
+                            <div className="spinner-border animate-spin inline-block w-4 h-4 border-1 rounded-full" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                            <div className="spinner-grow inline-block w-4 h-4 bg-current rounded-full opacity-0" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     ) : (
-                        allPokemonData.map((poke, index)=> (
-                            <Pokemon attributes={poke} key={index}/>
-                        )) 
+                        <div className="flex flex-wrap justify-between">
+                            { allPokemonData.map((poke, index)=> (
+                                <Pokemon attributes={poke} key={index}/>
+                            )) }
+                        </div>
+                        
                     )
                 }
                 
