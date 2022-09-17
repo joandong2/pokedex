@@ -5,29 +5,20 @@ import {
 } from '../features/pokeSlice'
 
 const Header = () => {
-  const [key, setKey] = useState('')
-  const POKEMON = JSON.parse(localStorage.getItem('pokemons'))
+  const [match, setMatch] = useState([])
+  const POKEMON = JSON.parse(localStorage.getItem('jl_pokemon'))
   const dispatch = useDispatch()
 
   const handleKey = (e) => {
     if (!localStorage.getItem('jl_pokemon')) {
       dispatch(searchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=-1'))
     }
-   
-    // findMatches(word, pokemons) {
-    //   return pokemons.filter(pokemon => {
-    //     const regex = new RegExp(word, 'gi');
-  
-    //     return pokemon.name.match(regex) || splitIdFromURL(pokemon.url).match(regex)
-    //   });
-    // displayMatches() {
-    //   const matchArray = this.findMatches(this.searchBoxRef.current.value, this.state.pokemons);
-  
-    //   this.setState({
-    //     searchMatches: matchArray
-    //   });
-    // }
-    console.log('key', e.target.value)
+
+    const matchArr = POKEMON.filter(pokemon => {
+      const regex = new RegExp(e.target.value, 'gi');
+      return pokemon.name.match(regex) 
+    })
+    setMatch(matchArr)
   }
 
   return (
@@ -44,14 +35,22 @@ const Header = () => {
                     </svg>
                   </button>
                 </div>
-                <div className="p-4 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                  <ul>
-                    <li><a href="#">hello world</a></li>
-                    <li><a href="#">hello world</a></li>
-                    <li><a href="#">hello world</a></li>
-                    <li><a href="#">hello world</a></li>
-                  </ul>
-                </div>
+                {
+                  match.length > 0 ? (
+                    <div className="p-4 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none overflow-y-scroll max-h-[100px]">
+                      <ul>
+                        {
+                          match.map((res) => (
+                            <li><a href="#">{res.name}</a></li>
+                          ))
+                        }
+                      </ul>
+                    </div>
+                  ) : (
+                    null
+                  )
+                }
+                
             </div>
           </div>
         </div>
