@@ -18,15 +18,22 @@ const Header = () => {
       const regex = new RegExp(e.target.value, 'gi');
       return pokemon.name.match(regex) 
     })
+
     setMatch(matchArr)
-  }
+
+    if (e.target.value === '') {
+      setMatch([]);
+    }
+  } 
+
+  console.log('match', match);
 
   return (
     <section id="header">
         <div className='container mx-auto justify-between align-middle flex items-center md:flex-column px-6 pt-5'>
           <img className="max-h-20" src='./assets/R.png' alt=""/>
           <div className="search">
-            <div className="flex flex-col justify-center w-96">
+            <div className="flex flex-col justify-center w-96 relative">
                 <div className="input-group relative flex flex-wrap items-stretch w-full mt-6">
                   <input onChange={(e) => {handleKey(e)}} type="search" className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-t-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" />
                   <button className="btn px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" type="button" id="button-addon2">
@@ -35,22 +42,19 @@ const Header = () => {
                     </svg>
                   </button>
                 </div>
-                {
-                  match.length > 0 ? (
-                    <div className="p-4 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none overflow-y-scroll max-h-[100px]">
-                      <ul>
-                        {
-                          match.map((res) => (
-                            <li><a href="#">{res.name}</a></li>
-                          ))
-                        }
-                      </ul>
-                    </div>
-                  ) : (
-                    null
-                  )
+                { match.length !== 0
+                  ?   
+                    <div className="p-2 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none overflow-y-scroll max-h-[100px] absolute top-[100%]">
+                        <ul>
+                          {
+                            match.map((res) => (
+                              <li className="py-1"><a href="#">{res.name}</a></li>
+                            ))
+                          }
+                        </ul>
+                    </div> // search div
+                  : null
                 }
-                
             </div>
           </div>
         </div>
