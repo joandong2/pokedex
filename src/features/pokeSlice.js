@@ -16,11 +16,18 @@ export const fetchPokemon = createAsyncThunk(
         return response.data;
 });   
 
+export const searchAllPokemon = createAsyncThunk(
+    "pokemon/searchAllPokemon", async (URL) => {
+        const response = await axios.get(URL);
+        return response.data;
+});   
+
 export const pokeSlice = createSlice({
     name: 'pokemon',
     initialState : {
         pokemon: [],
         pokemonData: [],
+        searchedPokemon: [],
         status: 'idle',
         error: null,
         nextUrl: '',
@@ -48,12 +55,19 @@ export const pokeSlice = createSlice({
                 state.pokemonData = [...state.pokemonData, action.payload]
                 state.status = 'success'
             })
+            .addCase(searchAllPokemon.fulfilled, (state, action) => {
+                //console.log('action', action.payload)
+                //const POKEMON = JSON.parse(localStorage.getItem("jl_pokemon"));
+                if (!localStorage.getItem('jl_pokemon')) {
+                    localStorage.setItem('jl_pokemon', JSON.stringify(action.payload.results))
+                }
+            })
     }
 })
 
 export const selectAllPokemon = (state) => state.pokemon.pokemon
 export const getPokemonData = (state) => state.pokemon.pokemonData
-//export const getPokemonCount = (state) => state.pokemon.count
+export const getSearchedPokemon = (state) => state.pokemon.searchedPokemon
 export const getStatus = (state) => state.pokemon.status
 export const getNextUrl = (state) => state.pokemon.nextUrl
 export const getPrevUrl = (state) => state.pokemon.prevUrl

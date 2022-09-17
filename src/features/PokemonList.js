@@ -18,7 +18,6 @@ const PokemonList = () => {
     const nextUrl = useSelector(getNextUrl)
     const prevUrl = useSelector(getPrevUrl)
     const status = useSelector(getStatus)
-
     const dispatch = useDispatch()
 
     useEffect(() => {
