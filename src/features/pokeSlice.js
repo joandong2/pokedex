@@ -20,7 +20,13 @@ export const searchAllPokemon = createAsyncThunk(
     "pokemon/searchAllPokemon", async (URL) => {
         const response = await axios.get(URL);
         return response.data;
-});   
+});  
+
+export const searchPokemon = createAsyncThunk(
+    "pokemon/searchPokemon", async (URL) => {
+        const response = await axios.get(URL);
+        return response.data;
+}); 
 
 export const pokeSlice = createSlice({
     name: 'pokemon',
@@ -61,6 +67,11 @@ export const pokeSlice = createSlice({
                 if (!localStorage.getItem('jl_pokemon')) {
                     localStorage.setItem('jl_pokemon', JSON.stringify(action.payload.results))
                 }
+            })
+            .addCase(searchPokemon.fulfilled, (state, action) => {
+                console.log(action)
+                state.searchedPokemon = [...state.searchedPokemon, action.payload]
+                state.status = 'success'
             })
     }
 })

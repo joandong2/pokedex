@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { 
-  searchAllPokemon, 
+  searchAllPokemon,
+  searchPokemon,
+  getSearchedPokemon
 } from '../features/pokeSlice'
 
 const Header = () => {
   const [match, setMatch] = useState([])
   const POKEMON = JSON.parse(localStorage.getItem('jl_pokemon'))
+  const currPokemon = useSelector(getSearchedPokemon)
+
   const dispatch = useDispatch()
 
   const handleKey = (e) => {
@@ -26,7 +31,12 @@ const Header = () => {
     }
   } 
 
-  console.log('match', match);
+  const handleClick = (name) => {
+    if(name) {
+      dispatch(searchPokemon(`https://pokeapi.co/api/v2/pokemon/${name}`))
+    }
+  }
+
 
   return (
     <section id="header">
@@ -47,8 +57,8 @@ const Header = () => {
                     <div className="p-2 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none overflow-y-scroll max-h-[100px] absolute top-[100%]">
                         <ul>
                           {
-                            match.map((res) => (
-                              <li className="py-1"><a href="#">{res.name}</a></li>
+                            match.map((res, index) => (
+                              <li key={index} className="py-1 cursor-pointer" onClick={() => handleClick(res.name)}>{res.name}</li>
                             ))
                           }
                         </ul>

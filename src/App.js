@@ -1,7 +1,6 @@
 import './App.css';
 import PokemonList from './features/PokemonList'; 
 import Layout from './components/Layout';
-import Pokemon from './features/Pokemon';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
 
         <Route path="pokemon">
           <Route index element={<PokemonList/>} />
-          <Route path=":id" element={<Pokemon />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
