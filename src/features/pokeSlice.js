@@ -67,6 +67,9 @@ export const pokeSlice = createSlice({
                     localStorage.setItem('jl_pokemon', JSON.stringify(action.payload.results))
                 }
             })
+            .addCase(searchPokemon.pending, (state, action) => {
+                state.status = 'loading'
+            })
             .addCase(searchPokemon.fulfilled, (state, action) => {
                 state.searchedPokemon = action.payload
                 state.status = 'success'
