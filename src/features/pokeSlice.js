@@ -62,15 +62,13 @@ export const pokeSlice = createSlice({
                 state.status = 'success'
             })
             .addCase(searchAllPokemon.fulfilled, (state, action) => {
-                //console.log('action', action.payload)
                 //const POKEMON = JSON.parse(localStorage.getItem("jl_pokemon"));
                 if (!localStorage.getItem('jl_pokemon')) {
                     localStorage.setItem('jl_pokemon', JSON.stringify(action.payload.results))
                 }
             })
             .addCase(searchPokemon.fulfilled, (state, action) => {
-                console.log(action)
-                state.searchedPokemon = [...state.searchedPokemon, action.payload]
+                state.searchedPokemon = action.payload
                 state.status = 'success'
             })
     }

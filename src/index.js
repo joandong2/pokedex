@@ -11,7 +11,6 @@ import { fetchAllPokemon } from './features/pokeSlice'
 // fetch all pokemon on store dispatch
 store.dispatch(fetchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=18'));
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
