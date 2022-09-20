@@ -10,8 +10,8 @@ import Pokemon from '../features/Pokemon'
 
 const Header = () => {
   const [match, setMatch] = useState([])
-  const POKEMON = JSON.parse(localStorage.getItem('jl_pokemon'))
   const currPokemon = useSelector(getSearchedPokemon)
+  let POKEMON;
 
   const dispatch = useDispatch()
 
@@ -19,6 +19,8 @@ const Header = () => {
     if (!localStorage.getItem('jl_pokemon')) {
       dispatch(searchAllPokemon('https://pokeapi.co/api/v2/pokemon/?limit=-1'))
     }
+  
+    POKEMON = JSON.parse(localStorage.getItem('jl_pokemon'))
 
     const matchArr = POKEMON.filter(pokemon => {
       const regex = new RegExp(e.target.value, 'gi');
@@ -32,7 +34,7 @@ const Header = () => {
     }
   } 
 
-  console.log('curr', currPokemon)
+  console.log('curr', POKEMON)
 
   return (
     <section id="header">
