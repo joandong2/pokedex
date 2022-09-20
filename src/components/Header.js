@@ -34,7 +34,7 @@ const Header = () => {
     }
   } 
 
-  console.log('curr', POKEMON)
+  console.log('current pokemon', POKEMON)
 
   return (
     <section id="header">
