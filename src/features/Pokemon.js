@@ -42,21 +42,21 @@ const Pokemon = ({ attributes }) => {
 
     const data = {
         labels: [
-            attributes.stats[0].stat.name.toUpperCase(), 
+            attributes.stats[4].stat.name.toUpperCase(), 
             attributes.stats[1].stat.name.toUpperCase(),
             attributes.stats[2].stat.name.toUpperCase(),
             attributes.stats[3].stat.name.toUpperCase(),
-            attributes.stats[4].stat.name.toUpperCase(),
+            attributes.stats[0].stat.name.toUpperCase(),
             attributes.stats[5].stat.name.toUpperCase()
         ],
         datasets: [
             {
             data: [
-                attributes.stats[0].base_stat,
+                attributes.stats[4].base_stat,
                 attributes.stats[1].base_stat,
                 attributes.stats[2].base_stat,
                 attributes.stats[3].base_stat,
-                attributes.stats[4].base_stat,
+                attributes.stats[0].base_stat,
                 attributes.stats[5].base_stat
             ],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -80,9 +80,9 @@ const Pokemon = ({ attributes }) => {
                         <div className="w-[50%]">
                             <div className="flex flex-col justify-center align-middle">
                                 <h1 className="text-lightBlack text-center mr-2 mb-3">{attributes.name.toUpperCase()}</h1>
-                                <div className="flex justify-center">
+                                <div className="flex justify-center mb-3">
                                     {attributes.types.map(type => (
-                                        <span className={`text-black font-semibold mr-2 text-xs border border-solid px-2 py-1 tag-${type.type.name}`}>{type.type.name}</span>
+                                        <span className={`text-black font-medium mr-2 text-xs border border-solid px-3 py-1 tag-${type.type.name}`}>{type.type.name}</span>
                                     ))}
                                 </div>
                             </div>
