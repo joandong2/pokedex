@@ -34,7 +34,7 @@ const Header = () => {
     }
   } 
 
-  console.log('current pokemon', localStorage.getItem('jl_pokemon'))
+  // console.log('current pokemon', localStorage.getItem('jl_pokemon'))
 
   return (
     <section id="header">
