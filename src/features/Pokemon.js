@@ -77,7 +77,7 @@ const Pokemon = ({ attributes }) => {
                 <div className="modal-body relative p-4">
                     <div className="flex justify-between align-middle">
                         <img className="" src={`${attributes.sprites.other["official-artwork"].front_default}`} alt=""/>
-                        <div className="w-[50%]">
+                        <div className="w-[35%] mr-[5%]">
                             <div className="flex flex-col justify-center align-middle">
                                 <h1 className="text-lightBlack text-center mr-2 mb-3">{attributes.name.toUpperCase()}</h1>
                                 <div className="flex justify-center mb-3">
@@ -86,7 +86,6 @@ const Pokemon = ({ attributes }) => {
                                     ))}
                                 </div>
                             </div>
-                            
                             <Radar data={data} options={options}/>
                         </div>
                     </div>

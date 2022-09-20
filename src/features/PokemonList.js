@@ -71,7 +71,7 @@ const PokemonList = () => {
                 }
                 
             </div>
-            <div className="container mx-auto flex space-x-2 pl-10 mt-4 mb-4">
+            <div className="container mx-auto flex space-x-2 pl-10 mt-4 mb-4 justify-center">
                 <button className="rounded bg-red-500 font-bold py-2 px-4 text-white" onClick={handlePrevEvent}>PREVIOUS</button>
                 <button className="rounded bg-red-500 font-bold py-2 px-4 text-white" onClick={handleNextEvent}>NEXT</button>
             </div>
