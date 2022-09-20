@@ -78,7 +78,15 @@ const Pokemon = ({ attributes }) => {
                     <div className="flex justify-between align-middle">
                         <img className="" src={`${attributes.sprites.other["official-artwork"].front_default}`} alt=""/>
                         <div className="w-[50%]">
-                            <h1 className="text-lightBlack">{attributes.name}</h1>
+                            <div className="flex flex-col justify-center align-middle">
+                                <h1 className="text-lightBlack text-center mr-2 mb-3">{attributes.name.toUpperCase()}</h1>
+                                <div className="flex justify-center">
+                                    {attributes.types.map(type => (
+                                        <span className={`text-black font-semibold mr-2 text-xs border border-solid px-2 py-1 tag-${type.type.name}`}>{type.type.name}</span>
+                                    ))}
+                                </div>
+                            </div>
+                            
                             <Radar data={data} options={options}/>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ function App() {
           <Route path="edit/:postId" element={<EditPostForm />} />
         </Route> */}
 
-        <Route path="pokemon">
+        <Route path="/">
           <Route index element={<PokemonList/>} />
         </Route>
 

@@ -32,7 +32,7 @@ const Header = () => {
     }
   } 
 
-  console.log('curr', Object.keys(currPokemon).length !== 0)
+  console.log('curr', currPokemon)
 
   return (
     <section id="header">
@@ -50,7 +50,7 @@ const Header = () => {
                 </div>
                 { match.length !== 0
                   ?   
-                    <div className="p-2 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none overflow-y-scroll max-h-[100px] absolute top-[100%]">
+                    <div className="p-2 flex-auto min-w-0 block w-full px-3 py-1.5 text-sm text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-bl-md rounded-br-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none overflow-y-scroll max-h-[200px] absolute top-[100%]">
                         <ul>
                           {
                             match.map((res, index) => (
